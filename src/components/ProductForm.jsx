@@ -1,6 +1,24 @@
+import React, { useState } from "react";
+
 function ProductForm() {
+  const inputForm = {};
+  const propertiesList = ["name", "image", "price", "description"];
+  for (let key of propertiesList) {
+    inputForm[key] = { value: null, set: null };
+    [inputForm[key].value, inputForm[key].set] = useState("");
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`{
+      "name": "${inputForm.name.value}",
+      "price": ${inputForm.price.value},
+      "image": "${inputForm.image.value}",
+      "description": "${inputForm.description.value}",
+    }`);
+  };
   return (
-    <form className="post-form">
+    <form className="post-form" onSubmit={handleSubmit}>
       <h1>Create Product Form</h1>
       <div className="input-container">
         <label>
@@ -10,7 +28,9 @@ function ProductForm() {
             name="name"
             type="text"
             placeholder="Enter name here"
-            onChange={() => {}}
+            onChange={(event) => {
+              inputForm.name.set(event.target.value);
+            }}
           />
         </label>
       </div>
@@ -22,7 +42,9 @@ function ProductForm() {
             name="image"
             type="text"
             placeholder="Enter image url here"
-            onChange={() => {}}
+            onChange={(event) => {
+              inputForm.image.set(event.target.value);
+            }}
           />
         </label>
       </div>
@@ -34,7 +56,9 @@ function ProductForm() {
             name="price"
             type="number"
             placeholder="Enter price here"
-            onChange={() => {}}
+            onChange={(event) => {
+              inputForm.price.set(event.target.value);
+            }}
           />
         </label>
       </div>
@@ -46,7 +70,9 @@ function ProductForm() {
             name="description"
             type="text"
             placeholder="Enter description here"
-            onChange={() => {}}
+            onChange={(event) => {
+              inputForm.description.set(event.target.value);
+            }}
             rows={4}
             cols={30}
           />
